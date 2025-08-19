@@ -1,0 +1,37 @@
+CREATE TABLE players (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    position VARCHAR(50),
+    team VARCHAR(100),
+    goals INT DEFAULT 0,
+    assists INT DEFAULT 0,
+    passes INT DEFAULT 0,
+    tackles INT DEFAULT 0,
+    saves INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE matches (
+    id SERIAL PRIMARY KEY,
+    date DATE NOT NULL,
+    home_team VARCHAR(100) NOT NULL,
+    away_team VARCHAR(100) NOT NULL,
+    home_score INT,
+    away_score INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE player_stats (
+    id SERIAL PRIMARY KEY,
+    player_id INT REFERENCES players(id),
+    match_id INT REFERENCES matches(id),
+    goals INT DEFAULT 0,
+    assists INT DEFAULT 0,
+    passes INT DEFAULT 0,
+    tackles INT DEFAULT 0,
+    saves INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
